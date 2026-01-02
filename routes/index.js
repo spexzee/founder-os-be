@@ -15,7 +15,7 @@ const healthRoutes = require('./health.routes');
 router.use('/api', healthRoutes);
 
 // Default route
-router.get('/', (req, res) => {
+router.get('/', (_req, res) => {
   res.status(200).json({
     success: true,
     message: 'Welcome to Founder OS Backend API',
