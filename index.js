@@ -39,6 +39,17 @@ app.use(express.urlencoded({ extended: true }));
 // Custom request logger middleware
 app.use(requestLogger);
 
+// ==================== Health Check ====================
+
+// Health check endpoint for Docker/Kubernetes
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'healthy',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime()
+  });
+});
+
 // ==================== Routes Setup ====================
 
 // Mount all application routes
