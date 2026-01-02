@@ -1,36 +1,35 @@
-/**
- * User Model
- * 
- * Sample model structure for User entity.
- * This is a placeholder - in a real application, you would integrate
- * with a database using an ORM like Sequelize, Mongoose, or Prisma.
- */
+const mongoose = require('mongoose');
 
-class User {
-  constructor(id, name, email) {
-    this.id = id;
-    this.name = name;
-    this.email = email;
-    this.createdAt = new Date();
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, 'Name is required'],
+      trim: true,
+    },
+    email: {
+      type: String,
+      required: [true, 'Email is required'],
+      unique: true,
+      lowercase: true,
+      trim: true,
+    },
+    role: {
+      type: String,
+      enum: ['founder', 'admin'],
+      default: 'founder',
+    },
+    organizationId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Organization',
+      required: [true, 'Organization ID is required'],
+    },
+  },
+  {
+    timestamps: true,
   }
+);
 
-  // Sample method - in real app, this would query a database
-  static findById(id) {
-    // Placeholder implementation
-    return null;
-  }
-
-  // Sample method - in real app, this would query a database
-  static findAll() {
-    // Placeholder implementation
-    return [];
-  }
-
-  // Sample method - in real app, this would save to database
-  save() {
-    // Placeholder implementation
-    return this;
-  }
-}
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;

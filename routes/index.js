@@ -10,9 +10,11 @@ const router = express.Router();
 
 // Import route modules
 const healthRoutes = require('./health.routes');
+const authRoutes = require('./auth.routes');
 
 // Mount routes
 router.use('/api', healthRoutes);
+router.use('/api/auth', authRoutes);
 
 // Default route
 router.get('/', (_req, res) => {
